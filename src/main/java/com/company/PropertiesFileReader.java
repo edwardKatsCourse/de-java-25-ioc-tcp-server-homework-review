@@ -1,12 +1,19 @@
+package com.company;
+
 import lombok.SneakyThrows;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 public class PropertiesFileReader {
 
+//    private final Map<String, String> properties = new HashMap<>();
+
     @SneakyThrows
-    public static String read() {
+    public static void loadProperties() {
 
         try (InputStream input = PropertiesFileReader.class.getClassLoader().getResourceAsStream("application.properties")) {
 
@@ -14,7 +21,11 @@ public class PropertiesFileReader {
 
             prop.load(input);
 
-            return prop.getProperty("server.port");
+            System.setProperties(prop);
         }
     }
+
+//    public String getProperty(String key) {
+//        return properties.get(key);
+//    }
 }

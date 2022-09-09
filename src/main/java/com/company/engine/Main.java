@@ -1,3 +1,6 @@
+package com.company.engine;
+
+import com.company.server.Server;
 import lombok.SneakyThrows;
 
 public class Main {

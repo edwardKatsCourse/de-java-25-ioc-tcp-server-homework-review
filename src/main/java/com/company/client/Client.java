@@ -1,3 +1,5 @@
+package com.company.client;
+
 import lombok.SneakyThrows;
 
 import java.io.ObjectInputStream;

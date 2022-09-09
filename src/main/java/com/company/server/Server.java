@@ -1,14 +1,18 @@
-import Annotations.Payload;
-import Annotations.RunMethod;
-import Annotations.TcpRequestMapping;
-import Annotations.Value;
+package com.company.server;
+
+import com.company.JacksonSerializer;
+import com.company.User;
+import com.company.engine.annotations.*;
 import lombok.SneakyThrows;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.Set;
 
+@Service
 public class Server {
     @Value("server.port")
     private Integer port;
@@ -16,12 +20,8 @@ public class Server {
     private String path = "json-data.txt";
 
     @SneakyThrows
-    @RunMethod
     public void run() {
-
-
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-
             while (true) {
                 try (Socket socket = serverSocket.accept();
                      ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -36,6 +36,20 @@ public class Server {
         }
     }
 
+//    public static void main(String[] args) {
+//        Set<Socket> users = new HashSet<>();
+//        ServerSocket serverSocket = new ServerSocket(1231);
+//
+//        while (true) {
+//            try (Socket socketFromClient = serverSocket.accept();) {
+//                ...
+//
+//                String data = socketFromClient.getInputStream().toString();
+//                socketFromClient.getOutputStream().write("response");
+//            }
+//        }
+//    }
+
     /**
      * - Engine creates `ServerSocket` internally.
      * - Whenever `.accept()` triggers - the engine reads `InputStream` and receives `String data` from it
@@ -48,6 +62,16 @@ public class Server {
 
         return new User("Peter", 47);
     }
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 1. `receiveRequest()` should be called in a separate `Thread`
